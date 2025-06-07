@@ -9,6 +9,7 @@ import os
 import time
 
 console = Console()
+TARGET_ID = None
 
 def clear():
     os.system("cls" if os.name == "nt" else "clear")
@@ -20,9 +21,25 @@ def save_to_file(content):
     with open("reports.txt", "a", encoding="utf-8") as f:
         f.write(content + "\n")
 
+def ask_target_id():
+    global TARGET_ID
+    clear()
+    panel = Panel(
+        Align.center("[bold yellow]Welcome to PORY_CYB Gozaresh System\n\n[/bold yellow]"
+                     "Lotfan [bold green]ID ya GUID[/bold green] target ra vared konid:", vertical="middle"),
+        title="[bold cyan]Target ID Input[/bold cyan]",
+        border_style="bold green",
+        padding=(1, 4),
+        width=60
+    )
+    console.print(panel, justify="center")
+    TARGET_ID = Prompt.ask("[bold green]➤ Target ID/GUID")
+
 def show_header():
     header = Panel(
-        Align.center("[bold green]:sparkles: PORY REPORT SYSTEM SOROSH :sparkles:[/bold green]", vertical="middle"),
+        Align.center(
+            f"[bold green]:sparkles: PORY REPORT SYSTEM SOROSH :sparkles:[/bold green]\n[cyan]🎯 Target: [bold white]{TARGET_ID}[/bold white][/cyan]",
+            vertical="middle"),
         title="[cyan bold]Security & Gozaresh[/cyan bold]",
         subtitle="by PORY_CYB",
         padding=(1, 4),
@@ -68,7 +85,7 @@ def report_empty():
             timestamp = now()
             msg = f"{i}. Gozaresh ersal shod ({timestamp})"
             live.update(Panel(f"[green]{msg} ✅", width=60))
-            save_to_file(f"[{timestamp}] Gozaresh Khali ({options[index-1]}) - Shomare {i}")
+            save_to_file(f"[{timestamp}] Target: {TARGET_ID} | Gozaresh Khali ({options[index-1]}) | Shomare {i}")
             time.sleep(0.3)
 
 def report_with_text():
@@ -83,10 +100,11 @@ def report_with_text():
             timestamp = now()
             msg = f"{i}. {text} - Gozaresh ersal shod ({timestamp})"
             live.update(Panel(f"[yellow]{msg} 📨", width=60))
-            save_to_file(f"[{timestamp}] Gozaresh Ba Matn: {text} (Shomare {i})")
+            save_to_file(f"[{timestamp}] Target: {TARGET_ID} | Gozaresh Ba Matn: {text} | Shomare {i}")
             time.sleep(0.3)
 
 def run():
+    ask_target_id()
     while True:
         clear()
         show_header()
