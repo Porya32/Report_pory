@@ -22,8 +22,8 @@ def save_to_file(content):
 
 def show_header():
     header = Panel(
-        Align.center("[bold green]:sparkles: PORY REPORT SYSTEM SOROSH:sparkles:[/bold green]", vertical="middle"),
-        title="[cyan bold]امنیت و گزارش[/cyan bold]",
+        Align.center("[bold green]:sparkles: PORY REPORT SYSTEM SOROSH :sparkles:[/bold green]", vertical="middle"),
+        title="[cyan bold]Security & Gozaresh[/cyan bold]",
         subtitle="by PORY_CYB",
         padding=(1, 4),
         border_style="bold green",
@@ -33,57 +33,57 @@ def show_header():
 
 def main_menu():
     menu = Panel(
-        """[bold yellow]لطفا یکی از گزینه‌ها را انتخاب کنید:[/bold yellow]
+        """[bold yellow]Lotfan Yeki Az Gozineha Ra Entekhab Konid:[/bold yellow]
 
-[bold cyan]1[/bold cyan]. 📝 گزارش خالی
-[bold cyan]2[/bold cyan]. 💬 گزارش با متن
-[bold red]0[/bold red]. ❌ خروج
+[bold cyan]1[/bold cyan]. 📝 Gozaresh Khali
+[bold cyan]2[/bold cyan]. 💬 Gozaresh Ba Matn
+[bold red]0[/bold red]. ❌ Khorooj
 """,
-        title="[blue]منوی اصلی[/blue]",
+        title="[blue]Menu Asli[/blue]",
         border_style="bold blue",
         width=50
     )
     console.print(menu, justify="center")
-    return Prompt.ask("شماره را وارد کنید", choices=["1", "2", "0"])
+    return Prompt.ask("Shomare ra Vared Konid", choices=["1", "2", "0"])
 
 def report_empty():
     clear()
     show_header()
 
-    table = Table(title="🗂️ انواع گزارش خالی", show_lines=True, box=None)
-    table.add_column("شماره", justify="center", style="cyan")
-    table.add_column("نوع گزارش", style="magenta")
+    table = Table(title="🗂️ Anvae Gozaresh Khali", show_lines=True, box=None)
+    table.add_column("Shomare", justify="center", style="cyan")
+    table.add_column("Noe Gozaresh", style="magenta")
 
-    options = ["هرزنامه", "حساب کاربر جعلی", "خشونت", "کودک آزاری", "مستهجن", "کپی رایت"]
+    options = ["Harzname", "Hesabe Jaali", "Khoshoonat", "Koodak Azari", "Mostahjan", "Copy Right"]
     for i, opt in enumerate(options, 1):
         table.add_row(str(i), f"🛑 {opt}")
 
     console.print(table)
 
-    index = IntPrompt.ask("\nشماره مورد نظر را وارد کنید", choices=[str(i) for i in range(1, 7)])
-    count = IntPrompt.ask("چند بار ارسال شود؟")
+    index = IntPrompt.ask("\nShomare mored nazar ra vared konid", choices=[str(i) for i in range(1, 7)])
+    count = IntPrompt.ask("Chand bar ersal shavad?")
 
     with Live(console=console, refresh_per_second=10) as live:
         for i in range(1, count + 1):
             timestamp = now()
-            msg = f"{i}. گزارش ارسال شد ({timestamp})"
+            msg = f"{i}. Gozaresh ersal shod ({timestamp})"
             live.update(Panel(f"[green]{msg} ✅", width=60))
-            save_to_file(f"[{timestamp}] گزارش خالی ({options[index-1]}) شماره {i}")
+            save_to_file(f"[{timestamp}] Gozaresh Khali ({options[index-1]}) - Shomare {i}")
             time.sleep(0.3)
 
 def report_with_text():
     clear()
     show_header()
 
-    text = Prompt.ask("📝 لطفاً متن گزارش را وارد کنید")
-    count = IntPrompt.ask("چند بار ارسال شود؟")
+    text = Prompt.ask("📝 Lotfan matne gozaresh ra vared konid")
+    count = IntPrompt.ask("Chand bar ersal shavad?")
 
     with Live(console=console, refresh_per_second=10) as live:
         for i in range(1, count + 1):
             timestamp = now()
-            msg = f"{i}. {text} - گزارش ارسال شد ({timestamp})"
+            msg = f"{i}. {text} - Gozaresh ersal shod ({timestamp})"
             live.update(Panel(f"[yellow]{msg} 📨", width=60))
-            save_to_file(f"[{timestamp}] گزارش با متن: {text} (شماره {i})")
+            save_to_file(f"[{timestamp}] Gozaresh Ba Matn: {text} (Shomare {i})")
             time.sleep(0.3)
 
 def run():
@@ -94,12 +94,12 @@ def run():
 
         if choice == "1":
             report_empty()
-            console.input("\n[bold cyan]برای بازگشت به منو Enter را بزنید...[/bold cyan]")
+            console.input("\n[bold cyan]Baraye bazgasht be menu Enter bezan...[/bold cyan]")
         elif choice == "2":
             report_with_text()
-            console.input("\n[bold cyan]برای بازگشت به منو Enter را بزنید...[/bold cyan]")
+            console.input("\n[bold cyan]Baraye bazgasht be menu Enter bezan...[/bold cyan]")
         elif choice == "0":
-            console.print("\n[bold red]خروج از برنامه...[/bold red] ❌")
+            console.print("\n[bold red]Khorooj az barname...[/bold red] ❌")
             break
 
 if __name__ == "__main__":
